@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
               child: Icon(Icons.person),
             ),
             SizedBox(width: 10),
-            Text('Invité'),
+            Text('Alexandre'),
             Icon(Icons.arrow_drop_down),
           ],
         ),
@@ -84,7 +84,14 @@ class _HomePageState extends State<HomePage> {
                           child: Column(
                             children: [
                               Text(
-                                ['mar.', 'mer.', 'jeu.', 'ven.', 'sam.', 'dim.'][index],
+                                [
+                                  'mar.',
+                                  'mer.',
+                                  'jeu.',
+                                  'ven.',
+                                  'sam.',
+                                  'dim.'
+                                ][index],
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                               Text(
@@ -111,7 +118,8 @@ class _HomePageState extends State<HomePage> {
               itemCount: medications.length,
               itemBuilder: (context, index) {
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Card(
                     child: ListTile(
                       leading: Icon(Icons.circle_outlined),
