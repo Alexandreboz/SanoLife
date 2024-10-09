@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 // import 'signup_page.dart';
 // import 'login_page.dart';
 import 'start.dart';
+// import 'scan.dart';
+import 'traitement.dart';
 
 void main() {
   runApp(MediApp());

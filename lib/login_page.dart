@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(height: 50),
                   // Affichage du logo
                   Image.asset(
-                    'asset/image/sano_life.png',  // Chemin de l'image du logo
+                    'asset/image/sano_life.png', // Chemin de l'image du logo
                     height: 300.0,
                   ),
                   SizedBox(height: 0),
@@ -90,14 +90,15 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: _login, // Appel à la fonction de connexion
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black, // Couleur du bouton
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 110),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                     child: Text(
                       'Se connecter',
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(fontSize: 15, color: Colors.white),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -111,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                     style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 15, horizontal: 90),
                       side: BorderSide(color: Colors.black, width: 2.0),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8.0),
@@ -119,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     child: Text(
                       'Créer mon compte',
-                      style: TextStyle(fontSize: 16, color: Colors.black),
+                      style: TextStyle(fontSize: 15, color: Colors.black),
                     ),
                   ),
                   SizedBox(height: 20),

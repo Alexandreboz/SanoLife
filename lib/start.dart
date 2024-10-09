@@ -19,7 +19,7 @@ class WelcomePage extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 100), // Espace pour éloigner du haut de l'écran
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -27,7 +27,7 @@ class WelcomePage extends StatelessWidget {
                     Text(
                       'SanoLife',
                       style: TextStyle(
-                        fontSize: 60,
+                        fontSize: 80,
                         fontWeight: FontWeight.bold,
                         color: Colors.black,
                         shadows: [
@@ -39,13 +39,13 @@ class WelcomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: 80),
                     // Texte secondaire avec contour
                     Text(
                       'Un accompagnement personnalisé pour\nvotre parcours bien-être.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 26,
                         color: Colors.black,
                         shadows: [
                           Shadow(

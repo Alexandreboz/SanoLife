@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sano_life/scan.dart';
+import 'package:sano_life/traitement.dart'; // Import de la page traitement
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -8,76 +10,75 @@ class DashboardPage extends StatelessWidget {
         title: Text(
           'Dashboard',
           style: TextStyle(
-            color: Colors.black, // Texte en noir
+            color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
         ),
-        backgroundColor: Color(0xFF4169e1), // Couleur bleue du header
-        centerTitle: true, // Centrer le texte
+        backgroundColor: Color(0xFFF7F5E6),
+        centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Barre de recherche
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "Rechercher des sujets de santé, des articles,...",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                    borderSide: BorderSide.none,
+      body: Container(
+        color: Color(0xFFF7F5E6),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextField(
+                  decoration: InputDecoration(
+                    hintText: "Rechercher des sujets de santé, des articles,...",
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey[200],
                   ),
-                  filled: true,
-                  fillColor: Colors.grey[200],
                 ),
-              ),
-              SizedBox(height: 20),
-              // Section Aujourd'hui
-              Text(
-                "Aujourd'hui",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                SizedBox(height: 20),
+                Text(
+                  "Aujourd'hui",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              _buildTodayCards(),
-              SizedBox(height: 20),
-              // Section des médicaments prescrits
-              Text(
-                "Médicaments prescrits",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                SizedBox(height: 10),
+                _buildTodayCards(context), // Ajout du contexte pour la navigation
+                SizedBox(height: 20),
+                Text(
+                  "Médicaments prescrits",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              _buildMedicationGrid(),
-              SizedBox(height: 20),
-              // Section Un accompagnement personnalisé
-              Text(
-                "Un accompagnement personnalisé",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                SizedBox(height: 10),
+                _buildMedicationGrid(),
+                SizedBox(height: 20),
+                Text(
+                  "Un accompagnement personnalisé",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-              _buildPersonalizedSupportGrid(),
-            ],
+                SizedBox(height: 10),
+                _buildPersonalizedSupportGrid(),
+              ],
+            ),
           ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.white,
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.apps),
             label: 'Accueil',
@@ -87,8 +88,8 @@ class DashboardPage extends StatelessWidget {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Calendrier',
+            icon: Icon(Icons.picture_as_pdf),
+            label: 'Scan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
@@ -99,52 +100,69 @@ class DashboardPage extends StatelessWidget {
             label: 'Profil',
           ),
         ],
-        currentIndex: 0, // Index initial
-        selectedItemColor: Colors.blueAccent, // Icône et texte en bleu pour l'élément sélectionné
-        unselectedItemColor: Colors.black, // Icône et texte en noir pour les éléments non sélectionnés
+        currentIndex: 0,
+        selectedItemColor: Colors.blueAccent,
+        unselectedItemColor: Colors.black,
         onTap: (int index) {
-          // Gérer la navigation ici
+          if (index == 2) {
+            // Redirige vers la page de scan
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ScanPage()),
+            );
+          }
         },
       ),
     );
   }
 
-  // Widget pour la section Aujourd'hui
-  Widget _buildTodayCards() {
+  Widget _buildTodayCards(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        _buildTodayItem(Icons.medical_services, "Mon traitement du jour"),
-        _buildTodayItem(Icons.calendar_today, "Mon RDV du jour"),
+        // Ajout de la redirection vers "TraitementPage" pour "Mon traitement du jour"
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TreatmentPage()),
+              );
+            },
+            child: _buildTodayItem(Icons.medical_services, "Mon traitement du jour"),
+          ),
+        ),
+        SizedBox(width: 10),
+        Expanded(child: _buildTodayItem(Icons.calendar_today, "Mon RDV du jour")),
       ],
     );
   }
 
   Widget _buildTodayItem(IconData icon, String label) {
-    return Expanded(
-      child: Card(
-        elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Icon(icon, size: 30, color: Colors.blueAccent),
-              SizedBox(width: 10),
-              Text(
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Icon(icon, size: 30, color: Colors.blueAccent),
+            SizedBox(width: 10),
+            Flexible(
+              child: Text(
                 label,
                 style: TextStyle(fontSize: 16, color: Colors.black),
+                overflow: TextOverflow.ellipsis,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
   }
 
-  // Widget pour la grille des médicaments prescrits
   Widget _buildMedicationGrid() {
     return GridView.count(
       shrinkWrap: true,
@@ -153,15 +171,14 @@ class DashboardPage extends StatelessWidget {
       mainAxisSpacing: 10,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        _buildMedicationItem(Icons.medical_services, "Antalgique"),
-        _buildMedicationItem(Icons.local_pharmacy, "Booster immunitaire"),
-        _buildMedicationItem(Icons.healing, "Complément santé"),
+        _buildMedicationItem(Icons.medical_services, "Antalgique", Color(0xFF56C8A2)),
+        _buildMedicationItem(Icons.local_pharmacy, "Booster\nimmunitaire", Color(0xFFFFC898)),
+        _buildMedicationItem(Icons.healing, "Complément\nsanté", Color(0xFFB39CD0)),
       ],
     );
   }
 
-  // Widget pour un élément de médicament
-  Widget _buildMedicationItem(IconData icon, String label) {
+  Widget _buildMedicationItem(IconData icon, String label, Color color) {
     return Column(
       children: [
         Container(
@@ -171,15 +188,20 @@ class DashboardPage extends StatelessWidget {
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(icon, size: 30),
+          child: Icon(icon, size: 30, color: color),
         ),
-        SizedBox(height: 10),
-        Text(label, textAlign: TextAlign.center),
+        SizedBox(height: 7),
+        Flexible(
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
       ],
     );
   }
 
-  // Widget pour la grille de l'accompagnement personnalisé
   Widget _buildPersonalizedSupportGrid() {
     return GridView.count(
       shrinkWrap: true,
@@ -196,7 +218,6 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // Widget pour un élément de l'accompagnement personnalisé
   Widget _buildSupportItem(IconData icon, String label) {
     return Card(
       elevation: 2,
@@ -208,7 +229,13 @@ class DashboardPage extends StatelessWidget {
         children: [
           Icon(icon, size: 40, color: Colors.black),
           SizedBox(height: 10),
-          Text(label, textAlign: TextAlign.center),
+          Flexible(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
         ],
       ),
     );

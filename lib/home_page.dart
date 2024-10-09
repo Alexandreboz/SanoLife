@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black, // Couleur de fond du bouton
                     padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 150),
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
                   },
                   style: OutlinedButton.styleFrom(
                     padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                        EdgeInsets.symmetric(vertical: 15, horizontal: 80),
                     side: BorderSide(color: Colors.black, width: 2.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
