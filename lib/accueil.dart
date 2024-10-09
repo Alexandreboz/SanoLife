@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'login_page.dart'; // Import de la page de connexion
-import 'signup_page.dart'; // Import de la page de création de compte
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:
-          Color(0xFFF7F5E6), // Couleur de fond similaire à celle de l'image
+      backgroundColor: Color(0xFFF7F5E6), // Couleur de fond similaire à celle de l'image
       body: SafeArea(
         child: Center(
           child: Padding(
@@ -18,7 +15,7 @@ class HomePage extends StatelessWidget {
               children: <Widget>[
                 // Affichage du logo
                 Image.asset(
-                  'asset/image/sano_life.png', // Chemin de l'image du logo
+                  'asset/image/sano_life.png',  // Chemin de l'image du logo
                   height: 300.0,
                 ),
                 SizedBox(height: 0),
@@ -45,16 +42,11 @@ class HomePage extends StatelessWidget {
                 // Bouton de connexion
                 ElevatedButton(
                   onPressed: () {
-                    // Redirection vers la page de connexion
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginPage()),
-                    );
+                    // Action pour se connecter
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black, // Couleur de fond du bouton
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 150),
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
                     ),
@@ -68,15 +60,10 @@ class HomePage extends StatelessWidget {
                 // Bouton de création de compte
                 OutlinedButton(
                   onPressed: () {
-                    // Redirection vers la page de création de compte
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => SignupPage()),
-                    );
+                    // Action pour créer un compte
                   },
                   style: OutlinedButton.styleFrom(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                    padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
                     side: BorderSide(color: Colors.black, width: 2.0),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
