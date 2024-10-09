@@ -30,11 +30,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+    
 
   http: ^0.13.3
   image_picker: ^0.8.4+4
   cupertino_icons: ^1.0.8 # Cupertino Icons for iOS style icons
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -49,6 +49,9 @@ flutter:
     - asset/image/sano_life.png # Path to your image file
     - asset/image/sano_life2.png
     - asset/image/1.png
+    - asset/image/nutrition.png
+    - asset/image/yoga.png
+    - asset/image/exercice.png
 
 # Optional fonts section for custom fonts
 # fonts:

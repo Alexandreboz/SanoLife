@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
-import 'tableau_de_bord.dart'; // Assurez-vous que cette page est importée
+import 'package:http/http.dart' as http;
 
 class ScanPage extends StatefulWidget {
   @override
@@ -11,11 +11,64 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   final ImagePicker _picker = ImagePicker();
 
+  // Fonction pour envoyer l'image à l'API
+  Future<void> _uploadFile(File file) async {
+    try {
+      print('Tentative d\'envoi de fichier : ${file.path}');
+
+      final uri = Uri.parse('http://192.168.151.244:3000/uploads'); // Remplacez par l'IP de votre machine
+      var request = http.MultipartRequest('POST', uri);
+
+      // Ajoutez les paramètres user_id (défini à 1 par défaut)
+      request.fields['user_id'] = '1';
+
+      request.files.add(await http.MultipartFile.fromPath('file', file.path));
+
+      print('Fichier ajouté à la requête, envoi en cours...');
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        setState(() {
+          // Affichage de la notification
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Fichier téléchargé avec succès'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        });
+        print('Fichier envoyé avec succès.');
+      } else {
+        setState(() {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Erreur lors du téléchargement du fichier'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        });
+        print('Erreur lors de l\'envoi du fichier. Statut : ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Exception attrapée : $e');
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erreur : $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
+    }
+  }
+
   // Fonction pour ouvrir l'appareil photo
   Future<void> _openCamera() async {
     final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
     if (photo != null) {
-      print('Image capturée : ${photo.path}');
+      File file = File(photo.path);
+      await _uploadFile(file);
     }
   }
 
@@ -23,7 +76,8 @@ class _ScanPageState extends State<ScanPage> {
   Future<void> _openFilePicker() async {
     final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
     if (file != null) {
-      print('Fichier sélectionné : ${file.path}');
+      File selectedFile = File(file.path);
+      await _uploadFile(selectedFile);
     }
   }
 
@@ -47,6 +101,7 @@ class _ScanPageState extends State<ScanPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(height: 20),
             GestureDetector(
               onTap: _openCamera,
               child: Container(
@@ -84,43 +139,6 @@ class _ScanPageState extends State<ScanPage> {
             ),
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.apps),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications),
-            label: 'Notifications',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.picture_as_pdf),
-            label: 'Scan',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Recherche',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profil',
-          ),
-        ],
-        currentIndex: 2,
-        selectedItemColor: Colors.blueAccent,
-        unselectedItemColor: Colors.black,
-        onTap: (int index) {
-          if (index == 0) {
-            // Redirige vers la page tableau de bord
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardPage()),
-            );
-          }
-        },
       ),
     );
   }

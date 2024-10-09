@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sano_life/scan.dart';
 import 'package:sano_life/traitement.dart'; // Import de la page traitement
+import 'package:sano_life/conseils.dart'; // Import de la page conseils
+import 'package:sano_life/documents.dart'; // Import de la page documents
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -48,7 +50,7 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                _buildTodayCards(context), // Ajout du contexte pour la navigation
+                _buildTodayCards(context),
                 SizedBox(height: 20),
                 Text(
                   "Médicaments prescrits",
@@ -70,7 +72,7 @@ class DashboardPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
-                _buildPersonalizedSupportGrid(),
+                _buildPersonalizedSupportGrid(context), // Ajout du contexte pour la navigation
               ],
             ),
           ),
@@ -120,20 +122,29 @@ class DashboardPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Ajout de la redirection vers "TraitementPage" pour "Mon traitement du jour"
         Expanded(
           child: GestureDetector(
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TreatmentPage()),
+                MaterialPageRoute(builder: (context) => TreatmentPage()), // Redirection vers la page traitement
               );
             },
-            child: _buildTodayItem(Icons.medical_services, "Mon traitement du jour"),
+            child: _buildTodayItem(Icons.medical_services, "Traitement"),
           ),
         ),
         SizedBox(width: 10),
-        Expanded(child: _buildTodayItem(Icons.calendar_today, "Mon RDV du jour")),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DocumentsPage()), // Redirection vers la page documents
+              );
+            },
+            child: _buildTodayItem(Icons.calendar_today, "Document"),
+          ),
+        ),
       ],
     );
   }
@@ -202,7 +213,8 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  Widget _buildPersonalizedSupportGrid() {
+  // Grid avec les liens personnalisés, y compris "Conseils"
+  Widget _buildPersonalizedSupportGrid(BuildContext context) {
     return GridView.count(
       shrinkWrap: true,
       crossAxisCount: 2,
@@ -212,7 +224,15 @@ class DashboardPage extends StatelessWidget {
       children: [
         _buildSupportItem(Icons.info, "Mes infos"),
         _buildSupportItem(Icons.show_chart, "Performances"),
-        _buildSupportItem(Icons.lightbulb, "Conseils"),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AdvicePage()), // Lien vers la page conseils
+            );
+          },
+          child: _buildSupportItem(Icons.lightbulb, "Conseils"),
+        ),
         _buildSupportItem(Icons.explore, "Découvrir +"),
       ],
     );

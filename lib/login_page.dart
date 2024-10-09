@@ -9,8 +9,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // Variables pour capturer l'email et le mot de passe
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController(text: 'alexandre@gmail.com'); // Valeur par défaut
+  final TextEditingController _passwordController = TextEditingController(text: 'alexandre77!'); // Valeur par défaut
 
   // Méthode pour simuler la connexion
   void _login() {
