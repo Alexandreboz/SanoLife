@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.white, // Couleur des icônes et textes sélectionnés
-        unselectedItemColor: Colors.white54, // Couleur des icônes non sélectionnés
+        unselectedItemColor: Colors.black, // Couleur des icônes non sélectionnés
         onTap: _onItemTapped, // Gérer le tap sur les boutons
       ),
     );

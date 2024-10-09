@@ -4,14 +4,16 @@ class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
- appBar: AppBar(
+      appBar: AppBar(
         title: Text(
-          'Tableau de bord',
+          'Dashboard',
           style: TextStyle(
-            color: Colors.white, // Texte en blanc
+            color: Colors.black, // Texte en noir
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
           ),
         ),
-        backgroundColor: Color(0xFF4169e1), // Utilisation de la couleur #4169e1
+        backgroundColor: Color(0xFF4169e1), // Couleur bleue du header
         centerTitle: true, // Centrer le texte
       ),
       body: SingleChildScrollView(
@@ -34,8 +36,31 @@ class DashboardPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              
-              // Section d'accompagnement personnalisé
+              // Section Aujourd'hui
+              Text(
+                "Aujourd'hui",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 10),
+              _buildTodayCards(),
+              SizedBox(height: 20),
+              // Section des médicaments prescrits
+              Text(
+                "Médicaments prescrits",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
+                ),
+              ),
+              SizedBox(height: 10),
+              _buildMedicationGrid(),
+              SizedBox(height: 20),
+              // Section Un accompagnement personnalisé
               Text(
                 "Un accompagnement personnalisé",
                 style: TextStyle(
@@ -45,67 +70,7 @@ class DashboardPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10),
-              _buildConsultationCard(
-                Icons.person,
-                "Aperçu de la consultation",
-                "Book Now",
-              ),
-              SizedBox(height: 10),
-              _buildConsultationCard(
-                Icons.favorite,
-                "Heart health assessment",
-                "Schedule",
-              ),
-              SizedBox(height: 20),
-              
-              // Section des médicaments prescrits
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Médicaments prescrits",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    "Discover",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              _buildMedicationGrid(),
-              SizedBox(height: 20),
-              
-              // Section pour se connecter avec un partenaire
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Connectez-vous avec votre partenaire",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Text(
-                    "Tout explorer",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.blueAccent,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 10),
-              _buildPartnerGrid(),
+              _buildPersonalizedSupportGrid(),
             ],
           ),
         ),
@@ -115,15 +80,19 @@ class DashboardPage extends StatelessWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.apps),
-            label: 'Home',
+            label: 'Accueil',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.medical_services),
-            label: 'Médicaments',
+            icon: Icon(Icons.notifications),
+            label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.local_hospital),
-            label: 'Services',
+            icon: Icon(Icons.calendar_today),
+            label: 'Calendrier',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Recherche',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -131,7 +100,8 @@ class DashboardPage extends StatelessWidget {
           ),
         ],
         currentIndex: 0, // Index initial
-        selectedItemColor: Colors.blueAccent,
+        selectedItemColor: Colors.blueAccent, // Icône et texte en bleu pour l'élément sélectionné
+        unselectedItemColor: Colors.black, // Icône et texte en noir pour les éléments non sélectionnés
         onTap: (int index) {
           // Gérer la navigation ici
         },
@@ -139,33 +109,36 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // Widget pour les cartes d'accompagnement personnalisé
-  Widget _buildConsultationCard(IconData icon, String title, String actionText) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Icon(icon, size: 30),
-                SizedBox(width: 10),
-                Text(title),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: () {},
-              child: Text(actionText),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Couleur du bouton
+  // Widget pour la section Aujourd'hui
+  Widget _buildTodayCards() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        _buildTodayItem(Icons.medical_services, "Mon traitement du jour"),
+        _buildTodayItem(Icons.calendar_today, "Mon RDV du jour"),
+      ],
+    );
+  }
+
+  Widget _buildTodayItem(IconData icon, String label) {
+    return Expanded(
+      child: Card(
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Icon(icon, size: 30, color: Colors.blueAccent),
+              SizedBox(width: 10),
+              Text(
+                label,
+                style: TextStyle(fontSize: 16, color: Colors.black),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -206,41 +179,38 @@ class DashboardPage extends StatelessWidget {
     );
   }
 
-  // Widget pour la grille des partenaires
-  Widget _buildPartnerGrid() {
+  // Widget pour la grille de l'accompagnement personnalisé
+  Widget _buildPersonalizedSupportGrid() {
     return GridView.count(
       shrinkWrap: true,
-      crossAxisCount: 3,
+      crossAxisCount: 2,
       crossAxisSpacing: 10,
       mainAxisSpacing: 10,
       physics: NeverScrollableScrollPhysics(),
       children: [
-        _buildPartnerItem(Icons.local_hospital, "Primary care"),
-        _buildPartnerItem(Icons.health_and_safety, "Oral health"),
-        _buildPartnerItem(Icons.science, "Research"),
-        _buildPartnerItem(Icons.local_hospital, "Caregiver"),
-        _buildPartnerItem(Icons.restaurant, "Nutrition"),
-        _buildPartnerItem(Icons.favorite, "Tableau de bord"),
+        _buildSupportItem(Icons.info, "Mes infos"),
+        _buildSupportItem(Icons.show_chart, "Performances"),
+        _buildSupportItem(Icons.lightbulb, "Conseils"),
+        _buildSupportItem(Icons.explore, "Découvrir +"),
       ],
     );
   }
 
-  // Widget pour un élément de partenaire
-  Widget _buildPartnerItem(IconData icon, String label) {
-    return Column(
-      children: [
-        Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(icon, size: 30),
-        ),
-        SizedBox(height: 10),
-        Text(label, textAlign: TextAlign.center),
-      ],
+  // Widget pour un élément de l'accompagnement personnalisé
+  Widget _buildSupportItem(IconData icon, String label) {
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(icon, size: 40, color: Colors.black),
+          SizedBox(height: 10),
+          Text(label, textAlign: TextAlign.center),
+        ],
+      ),
     );
   }
 }

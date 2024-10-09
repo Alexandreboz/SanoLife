@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 // import 'home_page.dart'; // Import de la page d'accueil
-import 'home_page.dart';
+// import 'home_page.dart';
+// import 'espace_accueil.dart';
+// import 'tableau_de_bord.dart';
 // import 'signup_page.dart';
 // import 'login_page.dart';
+import 'start.dart';
 
 void main() {
   runApp(MediApp());
@@ -17,7 +20,7 @@ class MediApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home: HomePage(), // Utilisation de la page d'accueil
+      home: WelcomePage(), // Utilisation de la page d'accueil
     );
   }
 }
