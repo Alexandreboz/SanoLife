@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 // import 'tableau_de_bord.dart';
 // import 'signup_page.dart';
 // import 'login_page.dart';
-import 'start.dart';
+// import 'start.dart';
 // import 'scan.dart';
-import 'traitement.dart';
+// import 'traitement.dart';
+import 'profil.dart';
 
 void main() {
   runApp(MediApp());
@@ -22,7 +23,7 @@ class MediApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       
-      home: WelcomePage(), // Utilisation de la page d'accueil
+      home: ProfilePage(), // Utilisation de la page d'accueil
     );
   }
 }
