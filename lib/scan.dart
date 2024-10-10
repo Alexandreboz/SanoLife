@@ -11,15 +11,15 @@ class ScanPage extends StatefulWidget {
 class _ScanPageState extends State<ScanPage> {
   final ImagePicker _picker = ImagePicker();
 
-  // Fonction pour envoyer l'image à l'API
+
   Future<void> _uploadFile(File file) async {
     try {
       print('Tentative d\'envoi de fichier : ${file.path}');
 
-      final uri = Uri.parse('http://192.168.151.244:3000/uploads'); // Remplacez par l'IP de votre machine
+      final uri = Uri.parse('http://192.168.151.244:3000/uploads'); 
       var request = http.MultipartRequest('POST', uri);
 
-      // Ajoutez les paramètres user_id (défini à 1 par défaut)
+
       request.fields['user_id'] = '1';
 
       request.files.add(await http.MultipartFile.fromPath('file', file.path));
@@ -30,7 +30,7 @@ class _ScanPageState extends State<ScanPage> {
 
       if (response.statusCode == 200) {
         setState(() {
-          // Affichage de la notification
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text('Fichier téléchargé avec succès'),
@@ -105,7 +105,7 @@ class _ScanPageState extends State<ScanPage> {
             GestureDetector(
               onTap: _openCamera,
               child: Container(
-                width: 370,
+                width: 500,
                 height: 150,
                 decoration: BoxDecoration(
                   color: Colors.blue,

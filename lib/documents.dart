@@ -17,9 +17,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
     fetchDocuments();
   }
 
-  // Fonction pour récupérer les fichiers de l'API
+
   Future<void> fetchDocuments() async {
-    final uri = Uri.parse('http://192.168.151.244:3000/uploads'); // Remplacez par l'URL correcte
+    final uri = Uri.parse('http://192.168.151.244:3000/uploads'); 
     try {
       final response = await http.get(uri);
       if (response.statusCode == 200) {
