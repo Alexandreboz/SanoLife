@@ -17,7 +17,6 @@ class _DocumentsPageState extends State<DocumentsPage> {
     fetchDocuments();
   }
 
-
   Future<void> fetchDocuments() async {
     final uri = Uri.parse('http://192.168.151.244:3000/uploads'); 
     try {
@@ -54,9 +53,9 @@ class _DocumentsPageState extends State<DocumentsPage> {
         centerTitle: true,
       ),
       body: isLoading
-          ? Center(child: CircularProgressIndicator()) // Affiche un loader pendant le chargement
+          ? Center(child: CircularProgressIndicator()) 
           : documents.isEmpty
-              ? Center(child: Text('Aucun fichier disponible.')) // Si aucun fichier n'est trouvé
+              ? Center(child: Text('Aucun fichier disponible.')) 
               : ListView.builder(
                   itemCount: documents.length,
                   itemBuilder: (context, index) {
@@ -64,16 +63,14 @@ class _DocumentsPageState extends State<DocumentsPage> {
                     return Card(
                       margin: EdgeInsets.all(10),
                       child: ListTile(
-                        title: Text('Fichier envoyé le ${document['created_at']}'),
-                        // Affichage de l'image au lieu de l'URL
+                        title: Text('Fichier envoyé'),                       
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 10),
-                            // Afficher l'image à partir de l'URL
+                            SizedBox(height: 10),                            
                             Image.network(
                               document['url'],
-                              height: 200, // Ajustez la hauteur selon vos besoins
+                              height: 200, 
                               fit: BoxFit.cover,
                               errorBuilder: (context, error, stackTrace) {
                                 return Text("Impossible de charger l'image");

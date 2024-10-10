@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'legal_mention.dart';
+import 'condition.dart'; // Page des conditions générales
+import 'login_page.dart'; // Page de connexion
 
 class SignupPage extends StatefulWidget {
   @override
@@ -7,7 +10,11 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   // Variables pour les champs du formulaire
-  bool _isChecked = false;
+  bool _isCheckedConditions = false;
+  bool _isCheckedMentions = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
                 child: Column(
                   children: [
                     Image.asset(
-                      'asset/image/sano_life2.png',  // Chemin du logo
+                      'asset/image/sano_life2.png', // Chemin du logo
                       height: 145,
                     ),
                   ],
@@ -71,33 +78,90 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     SizedBox(height: 10),
                     TextField(
+                      controller: _emailController,
                       decoration: InputDecoration(
                         labelText: 'Adresse mail',
                         border: OutlineInputBorder(),
                       ),
                     ),
                     SizedBox(height: 10),
+                    
+                    // Champ Mot de passe
                     TextField(
+                      controller: _passwordController,
+                      obscureText: true, // Masquer le mot de passe
                       decoration: InputDecoration(
-                        labelText: 'Numéro de téléphone',
+                        labelText: 'Mot de passe',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    // Champ Confirmer le mot de passe
+                    TextField(
+                      controller: _confirmPasswordController,
+                      obscureText: true, // Masquer le mot de passe
+                      decoration: InputDecoration(
+                        labelText: 'Confirmer le mot de passe',
                         border: OutlineInputBorder(),
                       ),
                     ),
                     SizedBox(height: 20),
-                    // Checkbox pour les conditions générales
+                    // Checkbox pour les conditions générales avec lien
                     Row(
                       children: [
                         Checkbox(
-                          value: _isChecked,
+                          value: _isCheckedConditions,
                           onChanged: (bool? value) {
                             setState(() {
-                              _isChecked = value ?? false;
+                              _isCheckedConditions = value ?? false;
                             });
                           },
                         ),
-                        Expanded(
+                        GestureDetector(
+                          onTap: () {
+                            // Rediriger vers la page des Conditions Générales
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TermsAndConditionsPage()), // Page des Conditions
+                            );
+                          },
                           child: Text(
-                            "Je certifie sur l'honneur d'avoir lu et accepter les conditions générales.",
+                            "J'accepte les conditions générales.",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    // Checkbox pour les mentions légales avec redirection
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _isCheckedMentions,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              _isCheckedMentions = value ?? false;
+                            });
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            // Rediriger vers la page des Mentions Légales
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LegalMentionsPage()), // Page des Mentions Légales
+                            );
+                          },
+                          child: Text(
+                            "J'accepte les mentions légales.",
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],
@@ -106,11 +170,31 @@ class _SignupPageState extends State<SignupPage> {
                     // Bouton pour créer le compte
                     Center(
                       child: ElevatedButton(
-                        onPressed: _isChecked
+                        onPressed: (_isCheckedConditions && _isCheckedMentions)
                             ? () {
-                                // Action pour la création du compte
+                                // Vérifier si le mot de passe et la confirmation correspondent
+                                if (_passwordController.text == _confirmPasswordController.text) {
+                                  // Rediriger vers la page de login avec un message de succès
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Compte créé avec succès !'),
+                                    ),
+                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LoginPage()), // Page de connexion
+                                  );
+                                } else {
+                                  // Afficher un message d'erreur si les mots de passe ne correspondent pas
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text('Les mots de passe ne correspondent pas.'),
+                                    ),
+                                  );
+                                }
                               }
-                            : null, // Désactiver le bouton si les conditions ne sont pas cochées
+                            : null, // Désactiver le bouton si les conditions ou les mentions ne sont pas cochées
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.black, // Couleur du bouton
                           padding: EdgeInsets.symmetric(

@@ -3,6 +3,8 @@ import 'package:sano_life/scan.dart';
 import 'package:sano_life/traitement.dart'; // Import de la page traitement
 import 'package:sano_life/conseils.dart'; // Import de la page conseils
 import 'package:sano_life/documents.dart'; // Import de la page documents
+import 'package:sano_life/login_page.dart'; // Import de la page login
+import 'package:sano_life/profil.dart'; // Import de la page login
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -99,7 +101,7 @@ class DashboardPage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profil',
+            label: 'Profil', // Modification: Icone profil
           ),
         ],
         currentIndex: 0,
@@ -111,6 +113,18 @@ class DashboardPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => ScanPage()),
+            );
+          } else if (index == 4) {
+            // Redirige vers la page de login
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()), // Modification: vers login_page.dart
+            );
+          }else if (index == 1) {
+            // Redirige vers la page de login
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DashboardPage()), // Modification: vers login_page.dart
             );
           }
         },
