@@ -97,19 +97,19 @@ class _LegalMentionsPageState extends State<LegalMentionsPage> {
                 ],
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: isAccepted
-                    ? () {
-                        // Logique pour continuer après acceptation des conditions
-                        Navigator.pushNamed(context, '/home'); // Ex. rediriger vers la page d'accueil
-                      }
-                    : null, // Désactiver le bouton si non accepté
-                child: Text('Accepter et Continuer'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: isAccepted ? Colors.blue : Colors.grey,
-                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-                ),
-              ),
+              // ElevatedButton(
+              //   onPressed: isAccepted
+              //       ? () {
+              //           // Logique pour continuer après acceptation des conditions
+              //           Navigator.pushNamed(context, '/home'); // Ex. rediriger vers la page d'accueil
+              //         }
+              //       : null, // Désactiver le bouton si non accepté
+              //   child: Text('Accepter et Continuer'),
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: isAccepted ? Colors.blue : Colors.grey,
+              //     padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+              //   ),
+              // ),
             ],
           ),
         ),

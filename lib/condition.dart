@@ -49,7 +49,7 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
               'Nous nous engageons à protéger votre vie privée et vos informations personnelles. Toutes les données collectées sont traitées conformément à notre politique de confidentialité.',
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 15),
             Row(
               children: [
                 Checkbox(
@@ -68,27 +68,27 @@ class _TermsAndConditionsPageState extends State<TermsAndConditionsPage> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: _isChecked
-                    ? () {
-                        // Action pour continuer après acceptation des conditions
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue, // Couleur du bouton
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 100),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-                child: Text(
-                  'Accepter et Continuer',
-                  style: TextStyle(fontSize: 16, color: Colors.white),
-                ),
-              ),
-            ),
+            SizedBox(height: 0),
+            // Center(
+            //   child: ElevatedButton(
+            //     onPressed: _isChecked
+            //         ? () {
+            //             // Action pour continuer après acceptation des conditions
+            //           }
+            //         : null,
+            //     style: ElevatedButton.styleFrom(
+            //       backgroundColor: Colors.blue, // Couleur du bouton
+            //       padding: EdgeInsets.symmetric(vertical: 0, horizontal: 100),
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(8.0),
+            //       ),
+            //     ),
+            //     child: Text(
+            //       'Accepter et Continuer',
+            //       style: TextStyle(fontSize: 16, color: Colors.white),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
